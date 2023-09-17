@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
     read.on("line", (line) => {
         if(counter >= 148){
             const values = line.split(",");
-            dates.push(parseFloat(values[0]));
+            dates.push(parseFloat(values[6]));
             deaths.push(parseFloat(values[12]));
         }
         counter--;
