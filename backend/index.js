@@ -21,10 +21,10 @@ app.get("/", (req, res) => {
         terminal: false
     });
 
-    let counter = 420;
+    let counter = 348;
 
     read.on("line", (line) => {
-        if(counter >= 0){
+        if(counter >= 148){
             const values = line.split(",");
             dates.push(parseFloat(values[0]));
             deaths.push(parseFloat(values[12]));
