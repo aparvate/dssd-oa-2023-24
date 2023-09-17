@@ -8,7 +8,7 @@ app.use(cors({
 }))
 
 app.get("/", (req, res) => {
-    res.sendFile('creditcard_json.json', { root: '.'}).status(200)
+    res.sendFile('daily.csv', { root: '.'}).status(200)
 })
 
 
