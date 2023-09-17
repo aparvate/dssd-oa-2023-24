@@ -1,5 +1,7 @@
 import express from "express"
 import cors from "cors"
+import fs from "fs";
+import readline from "readline";
 
 const app = express()
 
@@ -8,7 +10,39 @@ app.use(cors({
 }))
 
 app.get("/", (req, res) => {
-    res.sendFile('daily.csv', { root: '.'}).status(200)
+    const data = [];
+    const filePath = "daily.csv";
+
+    // Create a readable stream to read the CSV file line by line
+    const read = readline.createInterface({
+        input: fs.createReadStream(filePath),
+        output: process.stdout,
+        terminal: false
+    });
+
+    let counter = 420;
+
+    read.on("line", (line) => {
+        if(counter > 0){
+            const values = line.split(",");
+            const date = parseFloat(values[0]);
+            const deaths = parseFloat(values[12]);
+
+            // Push the data to the array
+            data.push({date,deaths});
+        }
+        counter--;
+    });
+
+    read.on("close", () => {
+        // Send the parsed data as a JSON response
+        res.json(data);
+    });
+
+    read.on("error", (error) => {
+        console.error("Error reading CSV file:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    });
 })
 
 
