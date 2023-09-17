@@ -10,7 +10,8 @@ app.use(cors({
 }))
 
 app.get("/", (req, res) => {
-    const data = [];
+    const dates = [];
+    const deaths = [];
     const filePath = "daily.csv";
 
     // Create a readable stream to read the CSV file line by line
@@ -25,14 +26,15 @@ app.get("/", (req, res) => {
     read.on("line", (line) => {
         if(counter >= 0){
             const values = line.split(",");
-            const date = parseFloat(values[0]);
-            const deaths = parseFloat(values[12]);
-
-            // Push the data to the array
-            data.push({date,deaths});
+            dates.push(parseFloat(values[0]));
+            deaths.push(parseFloat(values[12]));
         }
         counter--;
     });
+
+    const data = [];
+    data.push(dates);
+    data.unshift(deaths);
 
     read.on("close", () => {
         // Send the parsed data as a JSON response
