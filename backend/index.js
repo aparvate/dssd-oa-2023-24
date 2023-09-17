@@ -8,10 +8,7 @@ app.use(cors({
 }))
 
 app.get("/", (req, res) => {
-    res.send({
-        x: [1, 2, 3],
-        y: [4, 5, 6]
-    }).status(200)
+    res.sendFile('creditcard_json.json', { root: '.'}).status(200)
 })
 
 
