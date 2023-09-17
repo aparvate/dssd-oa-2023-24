@@ -32,13 +32,12 @@ app.get("/", (req, res) => {
         counter--;
     });
 
-    const data = [];
-    data.push(dates);
-    data.unshift(deaths);
-
     read.on("close", () => {
         // Send the parsed data as a JSON response
-        res.json(data);
+        res.json({
+            x: dates,
+            y: deaths
+        });
     });
 })
 
