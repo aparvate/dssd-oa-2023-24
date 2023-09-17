@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
     let counter = 420;
 
     read.on("line", (line) => {
-        if(counter > 0){
+        if(counter >= 0){
             const values = line.split(",");
             const date = parseFloat(values[0]);
             const deaths = parseFloat(values[12]);
