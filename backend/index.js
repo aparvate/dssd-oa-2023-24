@@ -38,11 +38,6 @@ app.get("/", (req, res) => {
         // Send the parsed data as a JSON response
         res.json(data);
     });
-
-    read.on("error", (error) => {
-        console.error("Error reading CSV file:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    });
 })
 
 
